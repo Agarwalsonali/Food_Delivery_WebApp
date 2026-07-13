@@ -11,6 +11,33 @@ const AddFoodItem = () => {
             alert("Please fill all fields")
             return false;
         }   
+
+        let resto_id;
+        const restoData = JSON.parse(localStorage.getItem("restaurantUser"))
+        if(!restoData){
+            alert("Please login first")
+            return false;
+        }else{
+            resto_id = restoData._id
+        }
+        let response = await fetch("http://localhost:3000/api/restaurant/foods", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, price, img_path: path, description, resto_id})
+        })
+
+        let data = await response.json()
+        if(data.success){
+            alert("Food item added successfully")
+            setName("")
+            setPrice("")
+            setPath("")
+            setDescription("")
+        }else{
+            alert("Failed to add food item")
+        }
     }
 
     return (
