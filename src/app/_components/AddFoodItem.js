@@ -50,20 +50,20 @@ const AddFoodItem = () => {
             <h1>Add New Food Item</h1>
             <div className="input-wrapper">
                 <input type="text" className="input-field" placeholder="Enter food name" value={name} onChange={(e)=>setName(e.target.value)} />
-            </div>
                 {error && !name && <span className="input-error">Please enter valid food name</span>}
+            </div>
             <div className="input-wrapper">
                 <input type="text" className="input-field" placeholder="Enter food price" value={price} onChange={(e)=>setPrice(e.target.value)} />
-            </div>
                 {error && !price && <span className="input-error">Please enter valid food price</span>}
+            </div>
             <div className="input-wrapper">
                 <input type="text" className="input-field" placeholder="Enter path" value={path} onChange={(e)=>setPath(e.target.value)} />
-            </div>
                 {error && !path && <span className="input-error">Please enter valid image path</span>}
+            </div>
             <div className="input-wrapper">
                 <input type="text" className="input-field" placeholder="Enter description" value={description} onChange={(e)=>setDescription(e.target.value)} />
-            </div>
                 {error && !description && <span className="input-error">Please enter valid food description</span>}
+            </div>
             <div className="input-wrapper">
                 <button className="button" onClick={handleAddFoodItem}>Add Food Item</button>
             </div>
