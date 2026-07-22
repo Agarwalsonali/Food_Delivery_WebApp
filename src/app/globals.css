@@ -51,3 +51,13 @@
     text-align: left;
     width: 300px;
 }
+
+table, th, td{
+  border: 1px solid #000;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+table td button{
+  margin: 5px;
+}
