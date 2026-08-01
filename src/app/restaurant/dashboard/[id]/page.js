@@ -1,13 +1,16 @@
+"use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation";
 
-const AddFoodItem = (props) => {
+const EditFoodItems = (props) => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [path, setPath] = useState("")
     const [description, setDescription] = useState("")
     const [error, setError] = useState(false)
+    const router = useRouter();
 
-    const handleAddFoodItem = async () => {
+    const handleEditFoodItem = async () => {
         if(!name || !price || !path || !description){
             setError(true)
             return false;
@@ -48,7 +51,7 @@ const AddFoodItem = (props) => {
 
     return (
         <div className="container"> 
-            <h1>Add New Food Item</h1>
+            <h1>Update Food Item</h1>
             <div className="input-wrapper">
                 <input type="text" className="input-field" placeholder="Enter food name" value={name} onChange={(e)=>setName(e.target.value)} />
                 {error && !name && <span className="input-error">Please enter valid food name</span>}
@@ -66,10 +69,13 @@ const AddFoodItem = (props) => {
                 {error && !description && <span className="input-error">Please enter valid food description</span>}
             </div>
             <div className="input-wrapper">
-                <button className="button" onClick={handleAddFoodItem}>Add Food Item</button>
+                <button className="button" onClick={handleEditFoodItem}>Update Food Item</button>
+            </div>
+            <div className="input-wrapper">
+                <button className="button" onClick={() => router.push("/restaurant/dashboard")}>Back to Dashboard</button>
             </div>
         </div>
     )
 }
 
-export default AddFoodItem;
+export default EditFoodItems;
