@@ -37,25 +37,18 @@ const EditFoodItems = ({ params }) => {
             setError(false)
         }   
 
-        let resto_id;
-        const restoData = JSON.parse(localStorage.getItem("restaurantUser"))
-        if(!restoData){
-            setError(true)
-            return false;
-        }else{
-            resto_id = restoData._id
-        }
-        let response = await fetch("http://localhost:3000/api/restaurant/foods", {
-            method: "POST",
+        let response = await fetch(`http://localhost:3000/api/restaurant/foods/edit/${id}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, price, img_path: path, description, resto_id})
+            body: JSON.stringify({ name, price, img_path: path, description })
         })
 
         let data = await response.json()
         if(data.success){
-            alert("Food item added successfully")
+            alert("Food item updated successfully")
+            router.push("/restaurant/dashboard")
             setError(false)
             setName("")
             setPrice("")
@@ -63,7 +56,7 @@ const EditFoodItems = ({ params }) => {
             setDescription("")
         }else{
             setError(true)
-            alert("Error while adding food item")
+            alert("Error while updating food item")
         }
     }
 
