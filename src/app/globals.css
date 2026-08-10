@@ -171,3 +171,41 @@ table img{
   cursor: pointer;
   box-sizing: border-box;
 }
+
+.restaurant-list-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.restaurant-wrapper{
+  width: 45%;
+  background-color: orange;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restaurant-wrapper .heading-wrapper{
+  padding-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.restaurant-wrapper .address-wrapper{
+  padding-left: 15px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.restaurant-wrapper h5{
+  margin-left: 15px;
+}
+
+.restaurant-wrapper .address{
+  margin-left: 5px;
+}

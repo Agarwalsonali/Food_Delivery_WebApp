@@ -11,9 +11,11 @@ export default function Home() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [showLocation, setShowLocation] = useState(false);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
     loadLocations();
+    loadRestaurants();
   }, []);
 
   const loadLocations = async () => {
@@ -27,6 +29,19 @@ export default function Home() {
       console.error("Error fetching locations:", error);
     }
   }
+
+  const loadRestaurants = async () => {
+    try {
+      const response = await fetch("/api/customer");
+      const data = await response.json();
+      if(data.success) {
+        setRestaurants(data.result);
+      }
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    }
+  }
+
 
   const handleListItem = (location) => {
     setSelectedLocation(location);
@@ -53,6 +68,22 @@ export default function Home() {
                 </div>
                 <input type="text" className="search-input" placeholder="Enter food or restaurant name" />
             </div>
+        </div>
+        <div className="restaurant-list-container">
+          {
+            restaurants.map((restaurant) => (
+              <div key={restaurant._id} className="restaurant-wrapper">
+                <div className="heading-wrapper">
+                  <h3>{restaurant.name}</h3>
+                  <h5>Contact: {restaurant.contact}</h5>
+                </div>
+                <div className="address-wrapper">
+                  <div>{restaurant.city},</div>
+                  <div className="address">{restaurant.address}, Email: {restaurant.email}</div>
+                </div>
+              </div>
+            ))
+          }
         </div>
         <RestaurantFooter />
       </main>
