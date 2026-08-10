@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import CustomerHeader from "./_components/CustomerHeader";
 import RestaurantFooter from "./_components/Footer";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
@@ -12,6 +13,7 @@ export default function Home() {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [showLocation, setShowLocation] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     loadLocations();
@@ -79,7 +81,7 @@ export default function Home() {
         <div className="restaurant-list-container">
           {
             restaurants.map((restaurant) => (
-              <div key={restaurant._id} className="restaurant-wrapper">
+              <div onClick={()=>router.push('explore/'+restaurant.name)} key={restaurant._id} className="restaurant-wrapper">
                 <div className="heading-wrapper">
                   <h3>{restaurant.name}</h3>
                   <h5>Contact: {restaurant.contact}</h5>
