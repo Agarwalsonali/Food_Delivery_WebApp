@@ -213,3 +213,48 @@ table img{
 .restaurant-page-banner h1{
   font-size: 65px;
 }
+
+.detail-wrapper{
+  display: flex;
+  background-color: orange;
+}
+
+.detail-wrapper h4{
+  width: 50%
+}
+
+.food-item-wrapper{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.food-item-wrapper .list-item{
+  color: orange;
+  padding: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid orange;
+  display: flex;
+  text-transform: capitalize;
+}
+
+.food-item-wrapper .list-item button{
+  color: white;
+  border: none;
+  background-color: orange;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.food-item-wrapper .list-item button:hover{
+  background-color: darkorange;
+}
+
+.food-item-wrapper .list-item img{
+  width: 100px;
+  padding-right: 20px;
+}
+
+.food-item-wrapper .list-item .description{
+  font-weight: lighter;
+}
