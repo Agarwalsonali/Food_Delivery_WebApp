@@ -12,6 +12,7 @@ const Page = () => {
     const restaurantId = searchParams?.get("id") || params?.id || "";
     const [restaurantDetails, setRestaurantDetails] = useState(null);
     const [foodItems, setFoodItems] = useState([]);
+    const [cartData, setCartData] = useState(null);
 
     useEffect(() => {
         if (!restaurantId) return;
@@ -31,9 +32,13 @@ const Page = () => {
         }
     };
 
+    const addToCart = (item) => {
+        setCartData(item);
+    }
+
     return (
         <div>
-            <CustomerHeader />
+            <CustomerHeader cartData={cartData} />
             <div className="restaurant-page-banner">
                 <h1>{name}</h1>
             </div>
@@ -53,7 +58,7 @@ const Page = () => {
                                 <div>{item.name}</div>
                                 <div>{item.price}</div>
                                 <div className="description">{item.description}</div>
-                                <button>Add to Cart</button>
+                                <button onClick={() => addToCart(item)}>Add to Cart</button>
                             </div>
                         </div>
                     ))

@@ -1,6 +1,39 @@
 import Link from "next/link"
+import { useState } from "react";
+import { useEffect } from "react";
 
-const CustomerHeader = () => {
+const CustomerHeader = (props) => {
+
+    const [cartNumber, setCartNumber] = useState(0);
+    const [cartItem, setCartItem] = useState([]);
+
+    useEffect(() => {
+        // Load cart from localStorage on client side only
+        if (typeof window !== 'undefined') {
+            const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+            setCartNumber(cartStorage.length > 0 ? cartStorage.length : 0);
+            setCartItem(cartStorage.length > 0 ? cartStorage : []);
+        }
+    }, []);
+
+    useEffect(() => {
+        if(typeof window !== 'undefined' && props.cartData?.resto_id){
+            setCartItem((prevCartItem) => {
+                let updatedCart = [];
+
+                if (prevCartItem.length && prevCartItem[0].resto_id === props.cartData.resto_id) {
+                    updatedCart = [...prevCartItem, props.cartData];
+                } else {
+                    updatedCart = [props.cartData];
+                }
+
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+                setCartNumber(updatedCart.length);
+                return updatedCart;
+            });
+        }
+    }, [props.cartData]);
+
   return (
     <div className='header-wrapper'>
         <div className='logo'> 
@@ -17,7 +50,7 @@ const CustomerHeader = () => {
                 <Link href="/">SignUp</Link>
             </li>
             <li>
-                <Link href="/">Cart(0)</Link>
+                <Link href="/">Cart({cartNumber})</Link>
             </li>
             <li>
                 <Link href="/">Add Restaurant</Link>
