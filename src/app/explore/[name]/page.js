@@ -13,6 +13,15 @@ const Page = () => {
     const [restaurantDetails, setRestaurantDetails] = useState(null);
     const [foodItems, setFoodItems] = useState([]);
     const [cartData, setCartData] = useState(null);
+    const [cartStorage, setCartStorage] = useState(() => {
+        if (typeof window === "undefined") return [];
+        try {
+            return JSON.parse(localStorage.getItem("cart")) || [];
+        } catch {
+            return [];
+        }
+    });
+    const [cartIds, setCartIds] = useState(()=>cartStorage.map((item) => { return item._id }));
 
     useEffect(() => {
         if (!restaurantId) return;
@@ -34,6 +43,9 @@ const Page = () => {
 
     const addToCart = (item) => {
         setCartData(item);
+        let localCartIds = cartIds;
+        localCartIds.push(item._id);
+        setCartIds(localCartIds);
     }
 
     return (
@@ -58,7 +70,11 @@ const Page = () => {
                                 <div>{item.name}</div>
                                 <div>{item.price}</div>
                                 <div className="description">{item.description}</div>
-                                <button onClick={() => addToCart(item)}>Add to Cart</button>
+                                {
+                                    cartIds.includes(item._id) ? (
+                                        <button>Remove From Cart</button>
+                                    ) :  <button onClick={() => addToCart(item)}>Add to Cart</button>
+                                }
                             </div>
                         </div>
                     ))
