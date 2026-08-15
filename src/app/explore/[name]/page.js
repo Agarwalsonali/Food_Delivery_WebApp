@@ -22,6 +22,7 @@ const Page = () => {
         }
     });
     const [cartIds, setCartIds] = useState(()=>cartStorage.map((item) => { return item._id }));
+    const [removeCartData, setRemoveCartData] = useState();
 
     useEffect(() => {
         if (!restaurantId) return;
@@ -48,9 +49,15 @@ const Page = () => {
         setCartIds(localCartIds);
     }
 
+    const removeFromCart = (id) => {
+        setRemoveCartData(id);
+        var localIds = cartIds.filter((itemId) => itemId !== id);
+        setCartIds(localIds);
+    }
+
     return (
         <div>
-            <CustomerHeader cartData={cartData} />
+            <CustomerHeader cartData={cartData} removeCartData={removeCartData} />
             <div className="restaurant-page-banner">
                 <h1>{name}</h1>
             </div>
@@ -72,7 +79,7 @@ const Page = () => {
                                 <div className="description">{item.description}</div>
                                 {
                                     cartIds.includes(item._id) ? (
-                                        <button>Remove From Cart</button>
+                                        <button onClick={() => removeFromCart(item._id)}>Remove From Cart</button>
                                     ) :  <button onClick={() => addToCart(item)}>Add to Cart</button>
                                 }
                             </div>

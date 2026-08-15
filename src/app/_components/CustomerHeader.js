@@ -34,6 +34,17 @@ const CustomerHeader = (props) => {
         }
     }, [props.cartData]);
 
+    useEffect(() => {
+        if(typeof window !== 'undefined' && props.removeCartData){
+            setCartItem((prevCartItem) => {
+                const updatedCart = prevCartItem.filter((item) => item._id !== props.removeCartData);
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+                setCartNumber(updatedCart.length);
+                return updatedCart;
+            });
+        }
+    }, [props.removeCartData]);
+
   return (
     <div className='header-wrapper'>
         <div className='logo'> 
