@@ -258,3 +258,15 @@ table img{
 .food-item-wrapper .list-item .description{
   font-weight: lighter;
 }
+
+.list-item-block-1{
+  width: 20%;
+}
+
+.list-item-block-2{
+  width: 80%;
+}
+
+.list-item-block-3{
+  width: 20%;
+}

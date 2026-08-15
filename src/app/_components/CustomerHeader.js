@@ -61,7 +61,7 @@ const CustomerHeader = (props) => {
                 <Link href="/">SignUp</Link>
             </li>
             <li>
-                <Link href="/">Cart({cartNumber})</Link>
+                <Link href={cartNumber ? "/cart" : "#"}>Cart({cartNumber})</Link>
             </li>
             <li>
                 <Link href="/">Add Restaurant</Link>
