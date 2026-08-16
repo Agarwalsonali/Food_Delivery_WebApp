@@ -3,10 +3,12 @@
 import CustomerHeader from "../_components/CustomerHeader";
 import RestaurantFooter from "../_components/Footer";
 import { useState, useEffect } from "react";
+import { TAX, DELIVERY_CHARGES } from "../lib/constant";
 
 const Page = () => {
     const [cartStorage, setCartStorage] = useState([]);
     const [isHydrated, setIsHydrated] = useState(false);
+    const total = cartStorage.reduce((sum, item) => sum + Number(item?.price || 0), 0);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -58,6 +60,29 @@ const Page = () => {
                 ) : (
                     <h1>No food items available.</h1>
                 )}
+            </div>
+            <div className="total-wrapper">
+                <div className="block-1">
+                    <div className="row">
+                    <span>Food Charges : </span>
+                    <span>{total}</span>
+                    </div>
+                    <div className="row">
+                        <span>Tax : </span>
+                        <span>{total*TAX/100}</span>
+                    </div>
+                    <div className="row">
+                        <span>Delivery Charges : </span>
+                        <span>{DELIVERY_CHARGES}</span>
+                    </div>
+                    <div className="row">
+                        <span>Total Amount : </span>
+                        <span>{total+DELIVERY_CHARGES+(total*TAX/100)}</span>
+                    </div>
+                </div>
+                <div className="block-2">
+                 <button>Order Now</button>
+                </div>
             </div>
             <RestaurantFooter />
         </div>

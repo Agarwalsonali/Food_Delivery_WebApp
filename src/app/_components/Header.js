@@ -27,7 +27,7 @@ const RestaurantHeader = () => {
   return (
     <div className='header-wrapper'>
       <div className='logo'> 
-        <img style={{width:100}} src='https://s.tmimgcdn.com/scr/1200x627/242400/food-delivery-custom-design-logo-template_242462-original.png'/>
+        <img style={{width:100}} src='https://www.swiftanytime.com/blog/design-food-delivery-app-mobile-system-design'/>
       </div>
       <ul>
             <li><Link href="/">Home</Link></li>
