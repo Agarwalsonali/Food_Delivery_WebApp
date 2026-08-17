@@ -62,7 +62,7 @@ export default function Home() {
         <CustomerHeader/>
         <div className="main-page-banner">
             <h1>Food Delivery App</h1>
-            <div className="input-wrapper">
+          <div className="search-box-wrapper">
                 <div className="select-wrapper">
                     <input type="text" value={selectedLocation} onClick={() => setShowLocation(true)} onChange={(e) => setSelectedLocation(e.target.value)} className="select-input" placeholder="Select Place" />
                    <ul className="location-list">

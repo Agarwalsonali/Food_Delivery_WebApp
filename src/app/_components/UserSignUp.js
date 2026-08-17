@@ -15,6 +15,17 @@ const UserSignUp=()=>{
             alert("Please fill all fields")
             return
         }
+
+        let response = await fetch('http://localhost:3000/api/user',{
+            method: 'POST',
+            body: JSON.stringify({name, email, password, city, address, mobile})
+        })
+        let data = await response.json()
+        if(data.success){
+            alert("User created successfully")
+        }else{
+            alert("Failed to create user")
+        }
     }
 
     return(
