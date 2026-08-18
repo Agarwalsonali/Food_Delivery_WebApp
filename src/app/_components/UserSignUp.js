@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-
+import { useRouter } from "next/navigation"
 
 const UserSignUp=()=>{
     const [name, setName] = useState("")
@@ -9,6 +9,7 @@ const UserSignUp=()=>{
     const [city, setCity] = useState("")
     const [address, setAddress] = useState("")
     const [mobile, setMobile] = useState("")
+    const router = useRouter();
 
     const handleSignup = async () => {
         if(!name || !email || !password || !confirmPassword || !city || !address || !mobile){
@@ -22,6 +23,10 @@ const UserSignUp=()=>{
         })
         let data = await response.json()
         if(data.success){
+            const {result} = data
+            delete result.password
+            localStorage.setItem("user", JSON.stringify(result))
+            router.push("/")
             alert("User created successfully")
         }else{
             alert("Failed to create user")
