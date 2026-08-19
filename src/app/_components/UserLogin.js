@@ -1,12 +1,30 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const UserLogin=()=>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
-    const loginHandle=()=>{
-        if(email && password){
-            const userStorage = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("user")) : null;
+    const loginHandle=async()=>{
+        if(!email || !password){
+            alert("Please fill all fields")
+            return
+        }
+
+        let response = await fetch('http://localhost:3000/api/user/login',{
+            method: 'POST',
+            body: JSON.stringify({email, password})
+        })
+        let data = await response.json()
+        if(data.success){
+            const {result} = data
+            delete result.password
+            localStorage.setItem("user", JSON.stringify(result))
+            router.push("/")
+            alert("User logged in successfully")
+        }else{
+            alert("Failed to login. Please try again with valid email and password")
         }
     };
 

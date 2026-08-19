@@ -75,7 +75,7 @@ const CustomerHeader = (props) => {
                 :
                 <>
                     <li>
-                        <Link href="/">Login</Link>
+                        <Link href="/user-auth">Login</Link>
                     </li>
                     <li>
                         <Link href="/user-auth">SignUp</Link>
