@@ -5,18 +5,32 @@ import { useRouter } from "next/navigation";
 
 const CustomerHeader = (props) => {
 
-    const userStorage = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("user")) : null;
     const [cartNumber, setCartNumber] = useState(0);
     const [cartItem, setCartItem] = useState([]);
-    const [user, setUser] = useState(userStorage? userStorage : undefined);
+    const [user, setUser] = useState(undefined);
     const router = useRouter();
+
+    useEffect(() => {
+        // Read browser storage after the initial render so server and client HTML match.
+        try {
+            const userStorage = JSON.parse(localStorage.getItem("user"));
+            setUser(userStorage || undefined);
+        } catch {
+            setUser(undefined);
+        }
+    }, []);
 
     useEffect(() => {
         // Load cart from localStorage on client side only
         if (typeof window !== 'undefined') {
-            const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
-            setCartNumber(cartStorage.length > 0 ? cartStorage.length : 0);
-            setCartItem(cartStorage.length > 0 ? cartStorage : []);
+            try {
+                const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+                setCartNumber(cartStorage.length > 0 ? cartStorage.length : 0);
+                setCartItem(cartStorage.length > 0 ? cartStorage : []);
+            } catch {
+                setCartNumber(0);
+                setCartItem([]);
+            }
         }
     }, []);
 
