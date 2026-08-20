@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 
-const UserSignUp=()=>{
+const UserSignUp=(props)=>{
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -26,7 +26,11 @@ const UserSignUp=()=>{
             const {result} = data
             delete result.password
             localStorage.setItem("user", JSON.stringify(result))
-            router.push("/")
+            if(props.redirect){
+                router.push("/order")
+            }else{
+                router.push("/")
+            }
             alert("User created successfully")
         }else{
             alert("Failed to create user")

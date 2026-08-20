@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const UserLogin=()=>{
+const UserLogin=(props)=>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
@@ -21,7 +21,11 @@ const UserLogin=()=>{
             const {result} = data
             delete result.password
             localStorage.setItem("user", JSON.stringify(result))
-            router.push("/")
+            if(props.redirect){
+                router.push("/order")
+            }else{
+                router.push("/")
+            }
             alert("User logged in successfully")
         }else{
             alert("Failed to login. Please try again with valid email and password")
