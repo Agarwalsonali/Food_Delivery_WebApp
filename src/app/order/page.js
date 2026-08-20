@@ -37,6 +37,33 @@ const Page = () => {
         });
     };
 
+    const orderNow = async() => {
+        let user_id = JSON.parse(localStorage.getItem("user"))?._id;
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let foodItemIds = cart.map(item => item._id).toString();
+        let deliveryBoy_id = "64a0e3f5c1b8f2d1e4a5b6c7"; // Replace with actual
+        let resto_id = cart[0]?.resto_id;
+        let collection = {
+            user_id,
+            resto_id,
+            foodItemIds,
+            deliveryBoy_id,
+            status: "confirm",
+            amount: total+DELIVERY_CHARGES+(total*TAX/100)
+        }
+
+        let response = await fetch('http://localhost:3000/api/order',{
+            method: 'POST',
+            body: JSON.stringify(collection)
+        });
+        let data = await response.json();
+        if(data.success){
+            alert("Order placed successfully");
+        }else{
+            alert("Failed to place order. Please try again.");
+        }
+    }
+
     return (
         <div>
             <CustomerHeader/>
@@ -76,7 +103,7 @@ const Page = () => {
                     </div>
                 </div>
                 <div className="block-2">
-                 <button>Place Order</button>
+                 <button onClick={orderNow}>Place Order</button>
                 </div>
             </div>
             <RestaurantFooter />
