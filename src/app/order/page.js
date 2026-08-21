@@ -4,6 +4,7 @@ import CustomerHeader from "../_components/CustomerHeader";
 import RestaurantFooter from "../_components/Footer";
 import { useState, useEffect } from "react";
 import { TAX, DELIVERY_CHARGES } from "../lib/constant";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
 
@@ -11,6 +12,9 @@ const Page = () => {
     const [cartStorage, setCartStorage] = useState([]);
     const [isHydrated, setIsHydrated] = useState(false);
     const total = cartStorage.reduce((sum, item) => sum + Number(item?.price || 0), 0);
+
+    const [removeCartData, setRemoveCartData] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -37,6 +41,12 @@ const Page = () => {
         });
     };
 
+    useEffect(() =>{
+        if(!total){
+            router.push('/');
+        }
+    },[total]);
+
     const orderNow = async() => {
         let user_id = JSON.parse(localStorage.getItem("user"))?._id;
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -59,6 +69,8 @@ const Page = () => {
         let data = await response.json();
         if(data.success){
             alert("Order placed successfully");
+            setRemoveCartData(true);
+            royuter.push('/myprofile');
         }else{
             alert("Failed to place order. Please try again.");
         }
@@ -66,7 +78,7 @@ const Page = () => {
 
     return (
         <div>
-            <CustomerHeader/>
+            <CustomerHeader removeCartData={removeCartData}/>
 
             <div className="total-wrapper">
                 <div className="block-1">
