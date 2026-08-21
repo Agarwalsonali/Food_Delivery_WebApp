@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const Page = () => {
 
-    const [userStorage, setUserStorage] = useState(JSON.parse(localStorage.getItem("user")) || undefined);
+    const [userStorage, setUserStorage] = useState(undefined);
     const [cartStorage, setCartStorage] = useState([]);
     const [isHydrated, setIsHydrated] = useState(false);
     const total = cartStorage.reduce((sum, item) => sum + Number(item?.price || 0), 0);
@@ -20,9 +20,12 @@ const Page = () => {
         if (typeof window === "undefined") return;
 
         try {
+            const user = JSON.parse(localStorage.getItem("user")) || undefined;
             const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+            setUserStorage(user);
             setCartStorage(savedCart);
         } catch {
+            setUserStorage(undefined);
             setCartStorage([]);
         } finally {
             setIsHydrated(true);
@@ -41,11 +44,18 @@ const Page = () => {
         });
     };
 
-    useEffect(() =>{
-        if(!total){
-            router.push('/');
+    useEffect(() => {
+        if (!isHydrated) return;
+
+        if (!userStorage) {
+            router.push('/user-auth?order=true');
+            return;
         }
-    },[total]);
+
+        if (!cartStorage.length) {
+            router.push('/cart');
+        }
+    }, [isHydrated, userStorage, cartStorage.length, router]);
 
     const orderNow = async() => {
         let user_id = JSON.parse(localStorage.getItem("user"))?._id;
@@ -70,7 +80,7 @@ const Page = () => {
         if(data.success){
             alert("Order placed successfully");
             setRemoveCartData(true);
-            royuter.push('/myprofile');
+            router.push('/myprofile');
         }else{
             alert("Failed to place order. Please try again.");
         }
@@ -79,6 +89,14 @@ const Page = () => {
     return (
         <div>
             <CustomerHeader removeCartData={removeCartData}/>
+
+            {!isHydrated ? (
+                <div className="total-wrapper">
+                    <div className="block-1">
+                        <h2>Loading order details...</h2>
+                    </div>
+                </div>
+            ) : (
 
             <div className="total-wrapper">
                 <div className="block-1">
@@ -118,6 +136,7 @@ const Page = () => {
                  <button onClick={orderNow}>Place Order</button>
                 </div>
             </div>
+            )}
             <RestaurantFooter />
         </div>
     );
