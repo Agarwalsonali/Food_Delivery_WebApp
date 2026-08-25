@@ -305,3 +305,16 @@ table img{
   cursor: pointer;
   padding: 10px 25px;
 }
+
+.auth-container{
+  display: flex;
+}
+
+.login-wrapper, .signup-wrapper{
+  height: 500px;
+  width: 50%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin: 10px;
+}
