@@ -72,15 +72,19 @@ const Page = () => {
             amount: total+DELIVERY_CHARGES+(total*TAX/100)
         }
 
-        let response = await fetch('http://localhost:3000/api/order',{
+        let response = await fetch('/api/order',{
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(collection)
         });
         let data = await response.json();
         if(data.success){
             alert("Order placed successfully");
+            localStorage.setItem("cart", JSON.stringify([]));
             setRemoveCartData(true);
-            router.push('/myprofile');
+            router.replace('/myprofile');
         }else{
             alert("Failed to place order. Please try again.");
         }

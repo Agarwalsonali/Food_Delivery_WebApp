@@ -55,18 +55,9 @@ const CustomerHeader = (props) => {
     useEffect(() => {
         if(typeof window !== 'undefined' && props.removeCartData){
             setCartItem((prevCartItem) => {
-                const updatedCart = prevCartItem.filter((item) => item._id !== props.removeCartData);
-                localStorage.setItem("cart", JSON.stringify(updatedCart));
-                setCartNumber(updatedCart.length);
-                return updatedCart;
-            });
-        }
-    }, [props.removeCartData]);
-
-    useEffect(() => {
-        if(typeof window !== 'undefined' && props.removeCartData){
-            setCartItem((prevCartItem) => {
-                const updatedCart = prevCartItem.filter((item) => item._id !== props.removeCartData);
+                const updatedCart = props.removeCartData === true
+                    ? []
+                    : prevCartItem.filter((item) => item._id !== props.removeCartData);
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
                 setCartNumber(updatedCart.length);
                 return updatedCart;
@@ -93,7 +84,7 @@ const CustomerHeader = (props) => {
                 user ? 
                 <>
                     <li> 
-                        <Link href="/#">{user?.name}</Link> 
+                        <Link href="/myprofile">{user?.name}</Link> 
                     </li>
                     <li><button onClick={logout}>Logout</button></li>
                 </>
