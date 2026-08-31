@@ -15,6 +15,52 @@ const Page = ()=>{
     const [mobile, setMobile] = useState("")
     const router = useRouter();
 
+    const handleSignup = async () => {
+        if(!name || !password || !confirmPassword || !city || !address || !mobile){
+            alert("Please fill all fields")
+            return
+        }
+
+        let response = await fetch('http://localhost:3000/api/deliverypartners/signup',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name, password, city, address, mobile})
+        })
+        let data = await response.json()
+        if(data.success){
+            const {result} = data
+            delete result.password
+            localStorage.setItem("delivery", JSON.stringify(result))
+            alert("User created successfully")
+        }else{
+            alert("Failed to create user")
+        }
+    }
+
+    const loginHandle=async()=>{
+        if(!loginMobile || !loginPassword){
+            alert("Please fill all fields")
+            return
+        }
+
+        let response = await fetch('http://localhost:3000/api/deliverypartners/login',{
+            method: 'POST',
+            body: JSON.stringify({mobile: loginMobile, password: loginPassword})
+        })
+        let data = await response.json()
+        if(data.success){
+            const {result} = data
+            delete result.password
+            localStorage.setItem("delivery", JSON.stringify(result))
+            alert("User logged in successfully")
+        }else{
+            alert("Failed to login. Please try again with valid mobile and password")
+        }
+    };
+
+
     return(
         <div>
             <h1>Delivery Partner</h1>
@@ -28,7 +74,7 @@ const Page = ()=>{
                         <input type="password" placeholder="enter password" className='input-field' value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
                     </div>
                     <div className='input-wrapper'>
-                        <button className="button">Login</button>
+                        <button onClick={loginHandle} className="button">Login</button>
                     </div>
                 </div>
                 <div className="signup-wrapper">
@@ -94,7 +140,7 @@ const Page = ()=>{
                     </div>
 
                     <div className="input-wrapper">
-                        <button className="button">Signup</button>
+                        <button onClick={handleSignup} className="button">Signup</button>
                     </div>
                 </div>
             </div>
