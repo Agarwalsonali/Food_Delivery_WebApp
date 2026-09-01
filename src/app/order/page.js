@@ -58,43 +58,75 @@ const Page = () => {
     }, [isHydrated, userStorage, cartStorage.length, router]);
 
     const orderNow = async() => {
-        let user_id = JSON.parse(localStorage.getItem("user"))?._id;
-        let user_city = JSON.parse(localStorage.getItem("user"))?.city;
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        let foodItemIds = cart.map(item => item._id).toString();
-        let deliveryBoyResponse = await fetch('/api/deliverypartners/' + user_city);
-        let deliveryBoyData = await deliveryBoyResponse.json();
-        let deliveryBoyIds = deliveryBoyData.result.map((item)=>item._id) 
-        let deliveryBoy_id = deliveryBoyIds(Math.floor(Math.random() * deliveryBoyIds.length));
-        if(deliveryBoy_id === undefined){
-            alert("No delivery boy available in your city. Please try again later.");
-            return false;
-        }
-        let resto_id = cart[0]?.resto_id;
-        let collection = {
-            user_id,
-            resto_id,
-            foodItemIds,
-            deliveryBoy_id,
-            status: "confirm",
-            amount: total+DELIVERY_CHARGES+(total*TAX/100)
-        }
+        try {
+            let user_id = JSON.parse(localStorage.getItem("user"))?._id;
+            let user_city = JSON.parse(localStorage.getItem("user"))?.city;
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let foodItemIds = cart.map(item => item._id).toString();
 
-        let response = await fetch('/api/order',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(collection)
-        });
-        let data = await response.json();
-        if(data.success){
-            alert("Order placed successfully");
-            localStorage.setItem("cart", JSON.stringify([]));
-            setRemoveCartData(true);
-            router.replace('/myprofile');
-        }else{
-            alert("Failed to place order. Please try again.");
+            if (!user_city) {
+                alert("User city is missing. Please login again.");
+                return;
+            }
+
+            const normalizedCity = String(user_city).trim();
+            const deliveryBoyResponse = await fetch(`/api/deliverypartners/${encodeURIComponent(normalizedCity)}`);
+            if (!deliveryBoyResponse.ok) {
+                const errorBody = await deliveryBoyResponse.text();
+                console.error("Delivery lookup failed", { status: deliveryBoyResponse.status, body: errorBody, city: normalizedCity });
+                throw new Error(`Delivery lookup failed: ${deliveryBoyResponse.status}`);
+            }
+
+            const deliveryBoyData = await deliveryBoyResponse.json();
+            const deliveryBoyIds = Array.isArray(deliveryBoyData?.result)
+                ? deliveryBoyData.result.map((item) => item._id)
+                : [];
+
+            if (!deliveryBoyIds.length) {
+                alert("No delivery boy available in your city. Please try again later.");
+                return;
+            }
+
+            const deliveryBoy_id = deliveryBoyIds[Math.floor(Math.random() * deliveryBoyIds.length)];
+            if (!deliveryBoy_id) {
+                alert("No delivery boy available in your city. Please try again later.");
+                return;
+            }
+
+            let resto_id = cart[0]?.resto_id;
+            let collection = {
+                user_id,
+                resto_id,
+                foodItemIds,
+                deliveryBoy_id,
+                status: "confirm",
+                amount: total + DELIVERY_CHARGES + (total * TAX / 100)
+            }
+
+            const response = await fetch('/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(collection)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Order API failed: ${response.status}`);
+            }
+
+            const data = await response.json();
+            if(data.success){
+                alert("Order placed successfully");
+                localStorage.setItem("cart", JSON.stringify([]));
+                setRemoveCartData(true);
+                router.replace('/myprofile');
+            } else {
+                alert("Failed to place order. Please try again.");
+            }
+        } catch (error) {
+            console.error("Failed to place order", error);
+            alert("Something went wrong while placing the order. Please try again.");
         }
     }
 
