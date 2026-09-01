@@ -29,19 +29,28 @@ const RestaurantSignup = () => {
         }
 
        console.log(email,password,c_password,name,city,address,contact);
-       let response = await fetch("http://localhost:3000/api/restaurant",{
+       let response = await fetch("/api/restaurant",{
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({email,password,name,city,address,contact})
        })
 
-       response=await response.json()
+       if (!response.ok) {
+         alert('Unable to create restaurant. Please try again.')
+         return
+       }
 
-       if(response.success){
-        console.log(response)
-        const {result}=response
+       const responseData = await response.json()
+
+       if(responseData.success){
+        const {result}=responseData
         delete result.password
         localStorage.setItem("restaurantUser",JSON.stringify(result))
         router.push('/restaurant/dashboard')
+       }else{
+        alert('Restaurant signup failed')
        }
     }
 

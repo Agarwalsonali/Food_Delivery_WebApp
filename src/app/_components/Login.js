@@ -10,18 +10,27 @@ const RestaurantLogin = () => {
   const handleLogin = async ()=>{
     if(!email || !password){
       setError(true)
-    }else{
-      setError(false)
+      return
     }
 
-    let response = await fetch('http://localhost:3000/api/restaurant',{
+    setError(false)
+
+    let response = await fetch('/api/restaurant',{
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({email, password, login:true})
     })
 
-    response = await response.json()
-    if(response.success){
-      const {result} = response;
+    if (!response.ok) {
+      alert('Login failed')
+      return
+    }
+
+    const responseData = await response.json()
+    if(responseData.success){
+      const {result} = responseData;
       delete result.password
       localStorage.setItem('restaurantUser', JSON.stringify(result))
       router.push('/restaurant/dashboard')
