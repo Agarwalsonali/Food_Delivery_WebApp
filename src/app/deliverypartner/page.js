@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import DeliveryHeader from "../DeliveryHeader";
-import { useEffect } from "react";
+imp
 
 const Page = ()=>{
 
