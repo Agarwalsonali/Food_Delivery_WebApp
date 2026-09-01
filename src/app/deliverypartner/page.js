@@ -1,6 +1,8 @@
 "use client"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import DeliveryHeader from "../DeliveryHeader";
+import { useEffect } from "react";
 
 const Page = ()=>{
 
@@ -14,6 +16,13 @@ const Page = ()=>{
     const [address, setAddress] = useState("")
     const [mobile, setMobile] = useState("")
     const router = useRouter();
+
+    useEffect(() => {
+        const deliveryStorage = JSON.parse(localStorage.getItem("delivery"));
+        if (deliveryStorage) {
+            router.push("/deliverydashboard");
+        }
+    }, []);
 
     const handleSignup = async () => {
         if(!name || !password || !confirmPassword || !city || !address || !mobile){
@@ -34,6 +43,7 @@ const Page = ()=>{
             delete result.password
             localStorage.setItem("delivery", JSON.stringify(result))
             alert("User created successfully")
+            router.push("/deliverydashboard")
         }else{
             alert("Failed to create user")
         }
@@ -55,6 +65,7 @@ const Page = ()=>{
             delete result.password
             localStorage.setItem("delivery", JSON.stringify(result))
             alert("User logged in successfully")
+            router.push("/deliverydashboard")
         }else{
             alert("Failed to login. Please try again with valid mobile and password")
         }
@@ -63,6 +74,7 @@ const Page = ()=>{
 
     return(
         <div>
+            <DeliveryHeader />
             <h1>Delivery Partner</h1>
             <div className="auth-container">
                 <div className="login-wrapper">

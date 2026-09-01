@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -103,6 +105,9 @@ const CustomerHeader = (props) => {
             </li>
             <li>
                 <Link href="/">Add Restaurant</Link>
+            </li>
+            <li>
+                <Link href="/deliverypartner">Delivery Partner</Link>
             </li>
         </ul>
     </div>
