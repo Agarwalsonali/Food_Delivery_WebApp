@@ -76,7 +76,11 @@ const CustomerHeader = (props) => {
   return (
     <div className='header-wrapper'>
         <div className='logo'> 
-            <img style={{width:100}} src='https://s.tmimgcdn.com/scr/1200x627/242400/food-delivery-custom-design-logo-template_242462-original.png'/>
+            <img
+                src='/food-shopping-logo-template-design_460848-10299.avif'
+                alt='Food Delivery'
+                style={{ width: 100, height: 60, objectFit: 'contain', mixBlendMode: 'multiply' }}
+            />
         </div>
         <ul>
             <li>

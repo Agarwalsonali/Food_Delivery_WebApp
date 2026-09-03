@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" role="img" aria-labelledby="title desc">
+  <title id="title">Food Delivery</title>
+  <desc id="desc">Food Delivery logo with a cloche and delivery label</desc>
+  <rect width="320" height="96" rx="18" fill="#ff8c00"/>
+  <path d="M42 48h54M50 48c0-16 12-28 27-28s27 12 27 28M68 20V14h18v6M62 58h30M72 66h10" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="118" y="47" fill="#fff" font-family="Arial, sans-serif" font-size="25" font-weight="700">FOOD</text>
+  <text x="118" y="73" fill="#fff" font-family="Arial, sans-serif" font-size="22" font-weight="700">DELIVERY</text>
+</svg>
