@@ -77,9 +77,9 @@ const CustomerHeader = (props) => {
     <div className='header-wrapper'>
         <div className='logo'> 
             <img
-                src='/food-shopping-logo-template-design_460848-10299.avif'
+                src='/logo.svg'
                 alt='Food Delivery'
-                style={{ width: 100, height: 60, objectFit: 'contain', mixBlendMode: 'multiply' }}
+                style={{ width: 100, height: 100, objectFit: 'contain' }}
             />
         </div>
         <ul>
