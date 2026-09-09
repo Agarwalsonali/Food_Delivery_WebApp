@@ -9,10 +9,12 @@ const Dashboard = () => {
   const [addItem, setAddItem] = useState(false)
 
   return (
-    <div>
+    <div className="restaurant-dashboard">
         <RestaurantHeader />
-        <button onClick={() => setAddItem(true)}>Add Food</button>
-        <button onClick={() => setAddItem(false)}>Dashboard</button>
+        <div className="dashboard-buttons">
+            <button onClick={() => setAddItem(true)} className="button">Add Food</button>
+            <button onClick={() => setAddItem(false)} className="button">Dashboard</button>
+        </div>
         {
             addItem ? <AddFoodItem setAddItem={setAddItem}/> : <FoodItemList />
         }

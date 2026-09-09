@@ -5,10 +5,14 @@
 .header-wrapper{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
 .header-wrapper ul{
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .header-wrapper ul li{
@@ -35,6 +39,7 @@
     text-align: center;
     font-size: 10px;
     background-color: white;
+    padding: 10px;
 }
 
 .input-wrapper{
@@ -47,14 +52,17 @@
 
 .input-field{
   width: 300px;
+  max-width: 100%;
   height: 35px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .button{
   width: 300px;
+  max-width: 100%;
   height: 40px;
   background-color: #007bff;
   color: white;
@@ -73,6 +81,8 @@
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .button-link{
@@ -90,6 +100,7 @@
     font-size: 13px;
     text-align: left;
     width: 300px;
+    max-width: 100%;
 }
 
 table, th, td{
@@ -104,6 +115,7 @@ table td button{
 
 table img{
   width: 80px;
+  max-width: 100%;
 }
 
 .main-page-banner, .restaurant-page-banner{
@@ -114,6 +126,8 @@ table img{
   height: 230px;
   color: #fff;
   text-align: center;
+  background-size: cover;
+  background-position: center;
 }
 
 .search-box-wrapper{
@@ -179,6 +193,7 @@ table img{
   flex-direction: row;
   margin-top: 40px;
   margin-bottom: 50px;
+  padding: 0 10px;
 }
 
 .restaurant-wrapper{
@@ -189,6 +204,7 @@ table img{
   border: 1px solid #aaa;
   border-radius: 5px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .restaurant-wrapper .heading-wrapper{
@@ -218,6 +234,7 @@ table img{
 .detail-wrapper{
   display: flex;
   background-color: orange;
+  flex-wrap: wrap;
 }
 
 .detail-wrapper h4{
@@ -227,6 +244,7 @@ table img{
 .food-item-wrapper{
   margin-top: 50px;
   margin-bottom: 50px;
+  padding: 0 10px;
 }
 
 .food-item-wrapper .list-item{
@@ -236,6 +254,7 @@ table img{
   border-bottom: 1px solid orange;
   display: flex;
   text-transform: capitalize;
+  flex-wrap: wrap;
 }
 
 .food-item-wrapper .list-item button{
@@ -254,6 +273,7 @@ table img{
 .food-item-wrapper .list-item img{
   width: 100px;
   padding-right: 20px;
+  max-width: 100%;
 }
 
 .food-item-wrapper .list-item .description{
@@ -262,14 +282,17 @@ table img{
 
 .list-item-block-1{
   width: 20%;
+  min-width: 100px;
 }
 
 .list-item-block-2{
   width: 80%;
+  flex: 1;
 }
 
 .list-item-block-3{
   width: 20%;
+  min-width: 100px;
 }
 
 .total-wrapper{
@@ -308,13 +331,309 @@ table img{
 
 .auth-container{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .login-wrapper, .signup-wrapper{
-  height: 500px;
+  height: auto;
+  min-height: 500px;
   width: 50%;
   padding: 20px;
   border: 1px solid #ccc;
   text-align: center;
   margin: 10px;
+  box-sizing: border-box;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-logo {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .header-wrapper ul {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .header-wrapper ul li {
+    padding: 10px 5px;
+  }
+  
+  .input-field {
+    width: 100%;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  
+  .input-error {
+    width: 100%;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .search-box-wrapper {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .select-wrapper {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .restaurant-wrapper {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .restaurant-page-banner h1 {
+    font-size: 32px;
+  }
+  
+  .restaurant-page-banner {
+    height: 150px;
+    padding: 15px;
+  }
+  
+  .main-page-banner {
+    height: 150px;
+    padding: 15px;
+  }
+  
+  .detail-wrapper {
+    flex-direction: column;
+  }
+  
+  .detail-wrapper h4 {
+    width: 100%;
+  }
+  
+  .food-item-wrapper .list-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .list-item-block-1,
+  .list-item-block-2,
+  .list-item-block-3 {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .food-item-wrapper .list-item img {
+    padding-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .total-wrapper .row {
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 16px;
+  }
+  
+  .total-wrapper .block-1,
+  .total-wrapper .block-2 {
+    width: 100%;
+  }
+  
+  .login-wrapper,
+  .signup-wrapper {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  table {
+    font-size: 12px;
+  }
+  
+  table th,
+  table td {
+    padding: 5px;
+  }
+  
+  table img {
+    width: 50px;
+  }
+  
+  .footer-wrapper {
+    position: relative;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurant-page-banner h1 {
+    font-size: 24px;
+  }
+  
+  .button {
+    font-size: 14px;
+  }
+  
+  .input-field {
+    font-size: 14px;
+  }
+  
+  .restaurant-wrapper {
+    padding: 8px;
+  }
+  
+  .restaurant-wrapper h3 {
+    font-size: 16px;
+  }
+  
+  .restaurant-wrapper h5 {
+    font-size: 12px;
+  }
+  
+  .restaurant-wrapper .address {
+    font-size: 12px;
+  }
+  
+  .restaurant-wrapper h4 {
+    font-size: 14px;
+  }
+  
+  .restaurant-wrapper div {
+    font-size: 12px;
+  }
+  
+  .button-link {
+    font-size: 12px;
+    margin: 10px;
+  }
+  
+  .delivery-dashboard {
+    padding: 10px;
+  }
+  
+  .delivery-dashboard h1 {
+    font-size: 20px;
+  }
+  
+  .delivery-dashboard .button {
+    width: auto;
+    padding: 8px 12px;
+    font-size: 12px;
+    margin: 5px;
+  }
+  
+  .delivery-dashboard select {
+    width: 100%;
+    max-width: 200px;
+    font-size: 12px;
+  }
+  
+  .dashboard-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-buttons .button {
+    width: auto;
+    padding: 10px 20px;
+  }
+  
+  .food-item-wrapper {
+    padding: 0 5px;
+  }
+  
+  .food-item-wrapper h1 {
+    font-size: 18px;
+  }
+  
+  .total-wrapper {
+    padding: 10px;
+  }
+  
+  .total-wrapper h2 {
+    font-size: 16px;
+  }
+  
+  .total-wrapper .row {
+    font-size: 14px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  .total-wrapper button {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .list-item-block-1 img {
+    width: 60px !important;
+  }
+  
+  .list-item-block-2 button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  
+  .list-item-block-3 {
+    font-size: 14px;
+  }
+  
+  .detail-wrapper {
+    padding: 10px;
+  }
+  
+  .detail-wrapper h4 {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .restaurant-page-banner {
+    padding: 15px;
+  }
+  
+  .myprofile .restaurant-wrapper {
+    margin: 10px auto;
+    width: 90%;
+  }
+  
+  .myprofile .restaurant-wrapper h4 {
+    font-size: 14px;
+  }
+  
+  .myprofile .restaurant-wrapper div {
+    font-size: 12px;
+  }
+  
+  .explore-page .list-item {
+    padding: 10px;
+  }
+  
+  .explore-page .list-item img {
+    width: 60px !important;
+  }
+  
+  .explore-page .list-item button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  
+  .explore-page .list-item .description {
+    font-size: 12px;
+  }
 }

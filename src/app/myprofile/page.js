@@ -43,7 +43,7 @@ const Page = ()=>{
     }, []);
 
     return (
-        <div>
+        <div className="myprofile">
             <CustomerHeader />
             {isLoading ? (
                 <p>Loading orders...</p>

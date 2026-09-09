@@ -56,7 +56,7 @@ const Page = () => {
     }
 
     return (
-        <div>
+        <div className="explore-page">
             <CustomerHeader cartData={cartData} removeCartData={removeCartData} />
             <div className="restaurant-page-banner">
                 <h1>{name}</h1>

@@ -142,7 +142,7 @@ const Page=()=>{
     return(
         <div>
             <DeliveryHeader />
-            <div style={{ padding: '20px' }}>
+            <div className="delivery-dashboard" style={{ padding: '20px' }}>
                 <h1>Delivery Dashboard</h1>
                 <div style={{ marginBottom: '20px' }}>
                     <button 
