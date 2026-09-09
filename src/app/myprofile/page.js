@@ -9,6 +9,18 @@ const Page = ()=>{
     const [myOrders, setMyOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const getStatusLabel = (status) => {
+        const labels = {
+            'confirm': 'Confirmed',
+            'ready_for_pickup': 'Ready for Pickup',
+            'picked_up': 'Picked Up',
+            'out_for_delivery': 'Out for Delivery',
+            'delivered': 'Delivered',
+            'cancelled': 'Cancelled'
+        };
+        return labels[status] || status;
+    };
+
     useEffect(() => {
         const getMyOrders = async () => {
             try {
@@ -40,10 +52,10 @@ const Page = ()=>{
             ) : (
                 myOrders.map((item)=>(
                     <div className = 'restaurant-wrapper' style={{marginLeft: 'auto', marginRight: 'auto'}} key={item.data?._id || item._id}>
-                        <h4>Name: {item.data?.name || "Restaurant unavailable"}</h4>
+                        <h4>Restaurant: {item.data?.name || "Restaurant unavailable"}</h4>
                         <div>Amount: {item.amount}</div>
-                        <div>Address: {item.data?.address || "Address unavailable"}</div>
-                        <div>Status: {item.status}</div>
+                        <div>Restaurant Address: {item.data?.address || "Address unavailable"}</div>
+                        <div>Status: {getStatusLabel(item.status)}</div>
                     </div>
                 ))
             )}

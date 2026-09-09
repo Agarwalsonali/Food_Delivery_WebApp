@@ -60,45 +60,21 @@ const Page = () => {
     const orderNow = async() => {
         try {
             let user_id = JSON.parse(localStorage.getItem("user"))?._id;
-            let user_city = JSON.parse(localStorage.getItem("user"))?.city;
+            let user_name = JSON.parse(localStorage.getItem("user"))?.name;
+            let user_address = JSON.parse(localStorage.getItem("user"))?.address;
+            let user_mobile = JSON.parse(localStorage.getItem("user"))?.mobile;
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let foodItemIds = cart.map(item => item._id).toString();
-
-            if (!user_city) {
-                alert("User city is missing. Please login again.");
-                return;
-            }
-
-            const normalizedCity = String(user_city).trim();
-            const deliveryBoyResponse = await fetch(`/api/deliverypartners/${encodeURIComponent(normalizedCity)}`);
-            if (!deliveryBoyResponse.ok) {
-                const errorBody = await deliveryBoyResponse.text();
-                console.error("Delivery lookup failed", { status: deliveryBoyResponse.status, body: errorBody, city: normalizedCity });
-                throw new Error(`Delivery lookup failed: ${deliveryBoyResponse.status}`);
-            }
-
-            const deliveryBoyData = await deliveryBoyResponse.json();
-            const deliveryBoyIds = Array.isArray(deliveryBoyData?.result)
-                ? deliveryBoyData.result.map((item) => item._id)
-                : [];
-
-            if (!deliveryBoyIds.length) {
-                alert("No delivery boy available in your city. Please try again later.");
-                return;
-            }
-
-            const deliveryBoy_id = deliveryBoyIds[Math.floor(Math.random() * deliveryBoyIds.length)];
-            if (!deliveryBoy_id) {
-                alert("No delivery boy available in your city. Please try again later.");
-                return;
-            }
+            let foodItemIds = cart.map(item => item._id);
 
             let resto_id = cart[0]?.resto_id;
             let collection = {
                 user_id,
+                customer_name: user_name,
+                customer_address: user_address,
+                customer_mobile: user_mobile,
                 resto_id,
                 foodItemIds,
-                deliveryBoy_id,
+                deliveryBoy_id: null,
                 status: "confirm",
                 amount: total + DELIVERY_CHARGES + (total * TAX / 100)
             }

@@ -9,6 +9,7 @@ const Page = ()=>{
     const [loginPassword, setLoginPassword] = useState("");
 
     const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [city, setCity] = useState("")
@@ -24,7 +25,7 @@ const Page = ()=>{
     }, []);
 
     const handleSignup = async () => {
-        if(!name || !password || !confirmPassword || !city || !address || !mobile){
+        if(!name || !email || !password || !confirmPassword || !city || !address || !mobile){
             alert("Please fill all fields")
             return
         }
@@ -34,7 +35,7 @@ const Page = ()=>{
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({name, password, city, address, mobile})
+            body: JSON.stringify({name, email, password, city, address, mobile})
         })
         let data = await response.json()
         if(data.success){
@@ -103,7 +104,17 @@ const Page = ()=>{
                     <div className="input-wrapper">
                         <input 
                             className="input-field"
-                            type="text" 
+                            type="email" 
+                            placeholder="Enter Email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="input-wrapper">
+                        <input 
+                            className="input-field"
+                            type="password" 
                             placeholder="Enter Password" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

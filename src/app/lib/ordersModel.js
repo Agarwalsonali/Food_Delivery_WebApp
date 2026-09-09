@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 
 const ordersModel = new mongoose.Schema({
     user_id: mongoose.Schema.Types.ObjectId,
-    name: mongoose.Schema.Types.ObjectId,
-    foodItemIds: String,
+    customer_name: String,
+    customer_address: String,
+    customer_mobile: String,
+    foodItemIds: [mongoose.Schema.Types.ObjectId],
     resto_id:mongoose.Schema.Types.ObjectId,
     deliveryBoy_id:mongoose.Schema.Types.ObjectId,
     status: String,

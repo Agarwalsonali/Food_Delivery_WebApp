@@ -6,6 +6,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const DeliveryHeader = (props) => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("delivery");
+    router.push("/deliverypartner");
+  };
 
   return (
     <div className='header-wrapper'>
@@ -19,6 +25,9 @@ const DeliveryHeader = (props) => {
         <ul>
             <li>
                 <Link href="/">Home</Link>
+            </li>
+            <li>
+                <button onClick={handleLogout}>Logout</button>
             </li>
         </ul>
     </div>

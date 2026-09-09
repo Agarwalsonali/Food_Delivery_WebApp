@@ -5,6 +5,11 @@ const deliveryPartnersModel = new mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     password: {
         type: String,
         required: true
@@ -19,7 +24,8 @@ const deliveryPartnersModel = new mongoose.Schema({
     },
     mobile: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
