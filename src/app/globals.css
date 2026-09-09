@@ -345,6 +345,17 @@ table img{
   box-sizing: border-box;
 }
 
+.auth-wrapper{
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin: 20px auto;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .header-wrapper {
@@ -457,6 +468,12 @@ table img{
   .signup-wrapper {
     width: 100%;
     margin: 10px 0;
+  }
+  
+  .auth-wrapper {
+    width: 100%;
+    margin: 10px 0;
+    max-width: 100%;
   }
   
   table {
