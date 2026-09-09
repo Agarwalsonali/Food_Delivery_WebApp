@@ -18,7 +18,7 @@ const EditFoodItems = ({ params }) => {
     },[])
 
     const handleLoadFoodItem = async () => {
-        let response = await fetch(`http://localhost:3000/api/restaurant/foods/edit/${id}`);
+        let response = await fetch(`/api/restaurant/foods/edit/${id}`);
         response = await response.json();
         if(response.success){
             const foodItem = response.result[0];
@@ -37,7 +37,7 @@ const EditFoodItems = ({ params }) => {
             setError(false)
         }   
 
-        let response = await fetch(`http://localhost:3000/api/restaurant/foods/edit/${id}`, {
+        let response = await fetch(`/api/restaurant/foods/edit/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

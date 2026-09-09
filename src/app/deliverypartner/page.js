@@ -30,7 +30,7 @@ const Page = ()=>{
             return
         }
 
-        let response = await fetch('http://localhost:3000/api/deliverypartners/signup',{
+        let response = await fetch('/api/deliverypartners/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const Page = ()=>{
             return
         }
 
-        let response = await fetch('http://localhost:3000/api/deliverypartners/login',{
+        let response = await fetch('/api/deliverypartners/login',{
             method: 'POST',
             body: JSON.stringify({mobile: loginMobile, password: loginPassword})
         })
