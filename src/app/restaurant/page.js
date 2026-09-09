@@ -3,7 +3,7 @@
 import { useState } from "react";
 import RestaurantLogin from "../_components/Login";
 import RestaurantSignup from "../_components/Signup";
-import RestaurantHeader from "../_components/Header";
+import CustomerHeader from "../_components/CustomerHeader";
 import './style.css'
 import RestaurantFooter from "../_components/Footer";
 
@@ -13,7 +13,7 @@ const Restaurant = ()=>{
     return (
         <>
         <div className="container">
-            <RestaurantHeader />
+            <CustomerHeader />
              <h1>Restaurant Login/Signup page</h1>
             {
                 login ? <RestaurantLogin /> : <RestaurantSignup />

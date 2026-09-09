@@ -28,9 +28,9 @@ const RestaurantHeader = () => {
     <div className='header-wrapper'>
       <div className='logo'> 
         <img
-          src='/food-delivery-logo.svg'
+          src='/logo.svg'
           alt='Food Delivery'
-          style={{ width: 100, height: 60, objectFit: 'contain' }}
+          style={{ width: 100, height: 100, objectFit: 'contain' }}
         />
       </div>
       <ul>
